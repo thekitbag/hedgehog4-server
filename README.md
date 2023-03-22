@@ -7,3 +7,5 @@ Ratings and reviews x-platform app allowing anyone to know whether something or 
  - set env variables
     - Export FLASK_APP='runserver.py'
     - Export FLASK_ENV='development'
+    - Export SCRIPT_NAME='/api'
+- run gunicorn -b :5000 --access-logfile - --error-logfile - runserver:app
