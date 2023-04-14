@@ -4,6 +4,9 @@ from webapp import db
 from webapp.models import Result
 from webapp.main import bp
 
+from webapp.main.mocks.places import results as google_places
+from webapp.main.response_handlers.google_places import get_fields
+
 @bp.route('/health')
 def health():
     return '', 200
@@ -20,18 +23,9 @@ def test():
 def search():
     r = json.loads(request.data.decode('utf-8'))
     search_term = r['search_term']
-    print(search_term)
 
+    places = get_fields(google_places)
 
-    result_objects = Result.query.all()
-
-    results = {'search_term': search_term, 'places': []}
-
-    for i in result_objects:
-        results['places'].append({
-            'id': i.id,
-            'type': i.type,
-            'name': i.name
-        })
+    results = {'search_term': search_term, 'places': places}
         
     return results
