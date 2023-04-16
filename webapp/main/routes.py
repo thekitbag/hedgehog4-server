@@ -5,6 +5,7 @@ from webapp.models import Result
 from webapp.main import bp
 
 from webapp.main.mocks.places import results as google_places
+from webapp.main.mocks.place_details import details as google_place_details
 from webapp.main.response_handlers.google_places import get_fields
 
 @bp.route('/health')
@@ -29,3 +30,8 @@ def search():
     results = {'search_term': search_term, 'places': places}
         
     return results
+
+@bp.route('/place_details', methods=['GET'])
+def place_details():
+    print
+    return {'details': google_place_details['result']}
