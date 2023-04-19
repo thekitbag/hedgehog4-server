@@ -5,7 +5,7 @@ def get_fields(results):
             "name": r["name"],
             "rating": calculate_rating(r["rating"]),
             "total_ratings": r["user_ratings_total"],
-            "type": r["types"][0],
+            "type": get_place_type(r["types"]),
             "location": get_location_from_compound_code(r["plus_code"]["compound_code"]),
             "place_id": r["place_id"]
         })
@@ -18,3 +18,14 @@ def get_location_from_compound_code(compound_code):
     words = compound_code.split(" ")
     location = words[1:]
     return location
+
+def get_place_type(place_types):
+    mapping = {
+        "bar": "Pub or Bar",
+        "meal_takeaway": "Takeaway"
+    }
+
+    if place_types[0] in mapping:
+        return mapping[place_types[0]]
+    else:
+        return place_types[0]
